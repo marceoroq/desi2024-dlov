@@ -32,14 +32,13 @@ public class CiudadEditarController {
 	@Autowired
     private ProvinciaService servicioProvincia;
      
-    @RequestMapping(path = {"", "/{id}"},method=RequestMethod.GET)
+    @RequestMapping(path = {"", "/{id}"}, method = RequestMethod.GET)
     public String preparaForm(Model modelo, @PathVariable("id") Optional<Long> dni) throws Exception {
     	if (dni.isPresent()) {
     		Ciudad entity = servicioCiudad.getById(dni.get());
     		CiudadForm form = new CiudadForm(entity);
 			modelo.addAttribute("formBean", form);
 		} else {
- 
 	       modelo.addAttribute("formBean",new CiudadForm());
 		}
        return "ciudadEditar";
@@ -58,21 +57,19 @@ public class CiudadEditarController {
 	}
  
     
-    @RequestMapping( method=RequestMethod.POST)
-    public String submit(@ModelAttribute("formBean") @Valid  CiudadForm formBean,BindingResult result, ModelMap modelo,@RequestParam String action) {
-    	
-    	
-    	if(action.equals("Aceptar"))
-    	{
-    		if(result.hasErrors())
-    		{
-    			
-                
-    			modelo.addAttribute("formBean",formBean);
-    			 return "ciudadEditar";
-    		}
-    		else
-    		{
+    @RequestMapping(method = RequestMethod.POST)
+    public String submit(
+    	@ModelAttribute("formBean")
+    	@Valid CiudadForm formBean,
+    	BindingResult result,
+    	ModelMap modelo,
+    	@RequestParam String action
+    ) {
+    	if(action.equals("Aceptar")) {
+    		if(result.hasErrors()) {
+    			modelo.addAttribute("formBean", formBean);
+    			return "ciudadEditar";
+    		} else {
     			try {
 					Ciudad p=formBean.toPojo();
 					p.setProvincia(servicioProvincia.getById(formBean.getIdProvincia()));
@@ -80,16 +77,12 @@ public class CiudadEditarController {
 					
 					return "redirect:/ciudadesBuscar";
 				} catch (Excepcion e) {
-					if(e.getAtributo()==null) //si la excepcion estuviera referida a un atributo del objeto, entonces mostrarlo al lado del compornente (ej. dni)
-					{
+					if(e.getAtributo() == null) { //si la excepcion estuviera referida a un atributo del objeto, entonces mostrarlo al lado del compornente (ej. dni)
 						ObjectError error = new ObjectError("globalError", e.getMessage());
 			            result.addError(error);
-					}
-					else
-					{
-			    		FieldError error1 = new FieldError("formBean",e.getAtributo(),e.getMessage());
+					} else {
+			    		FieldError error1 = new FieldError("formBean", e.getAtributo(), e.getMessage());
 			            result.addError(error1);
-
 					}
 		            modelo.addAttribute("formBean",formBean);
 	    			return "ciudadEditar";  //Como existe un error me quedo en la misma pantalla
@@ -97,17 +90,11 @@ public class CiudadEditarController {
     		}
     	}
     
-    	
-    	if(action.equals("Cancelar"))
-    	{
+    	if(action.equals("Cancelar")) {
     		modelo.clear();
     		return "redirect:/ciudadesBuscar";
     	}
     		
     	return "redirect:/";
-    	
-    	
     }
-
- 
 }

@@ -33,10 +33,10 @@ public class CiudadesBuscarController {
 	
     @RequestMapping(method=RequestMethod.GET)
     public String preparaForm(Model modelo) {
-    	CiudadesBuscarForm form =  new CiudadesBuscarForm();
-    	 form.setProvincias(servicioProvincia.getAll());    //  en lugar de esto hacemos @ModelAttribute("allProvincias")
-       modelo.addAttribute("formBean",form);
-       return "ciudadesBuscar";
+    	CiudadesBuscarForm form = new CiudadesBuscarForm();
+    	form.setProvincias(servicioProvincia.getAll());    //  en lugar de esto hacemos @ModelAttribute("allProvincias")
+    	modelo.addAttribute("formBean", form);
+    	return "ciudadesBuscar";
     }
      
     
@@ -45,42 +45,37 @@ public class CiudadesBuscarController {
         return this.servicioProvincia.getAll();
     }
     
-    @RequestMapping( method=RequestMethod.POST)
-    public String submit( @ModelAttribute("formBean") @Valid CiudadesBuscarForm  formBean,BindingResult result, ModelMap modelo,@RequestParam String action) throws Excepcion {
-    	
-    	
-    	if(action.equals("Buscar"))
-    	{
-    		
+    @RequestMapping(method=RequestMethod.POST)
+    public String submit(
+    	@ModelAttribute("formBean") @Valid CiudadesBuscarForm formBean,
+    	BindingResult result,
+    	ModelMap modelo,
+    	@RequestParam String action
+    ) throws Excepcion {
+    	if(action.equals("Buscar")) {
     		try {
     			List<Ciudad> ciudades = servicioCiudad.filter(formBean);
-    			modelo.addAttribute("resultados",ciudades);
+    			modelo.addAttribute("resultados", ciudades);
 			} catch (Exception e) {
 				ObjectError error = new ObjectError("globalError", e.getMessage());
 	            result.addError(error);
 			}
     		
-    		modelo.addAttribute("formBean",formBean);
+    		modelo.addAttribute("formBean", formBean);
         	return "ciudadesBuscar";
     	}
     
     	
-    	if(action.equals("Cancelar"))
-    	{
+    	if(action.equals("Cancelar")) {
     		modelo.clear();
     		return "redirect:/";
     	}
     	
-    	if(action.equals("Registrar"))
-    	{
+    	if(action.equals("Registrar")) {
     		modelo.clear();
     		return "redirect:/ciudadEditar";
     	}
     		
     	return "redirect:/";
-    	
-    	
     }
-
- 
 }

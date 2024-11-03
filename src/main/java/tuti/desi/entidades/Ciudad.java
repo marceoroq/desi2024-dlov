@@ -39,5 +39,4 @@ public class Ciudad {
 		this.provincia = provincia;
 	}
 	
-	
 }
