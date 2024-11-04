@@ -25,29 +25,29 @@ import tuti.desi.servicios.ProvinciaService;
 @RequestMapping("/ciudadesBuscar")
 public class CiudadesBuscarController {
 	@Autowired
-    private ProvinciaService servicioProvincia;
-   
+	private ProvinciaService servicioProvincia;
+
 	@Autowired
-    private CiudadService servicioCiudad;
-   
-	
-    @RequestMapping(method=RequestMethod.GET)
-    public String preparaForm(Model modelo) {
+	private CiudadService servicioCiudad;
+
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String preparaForm(Model modelo) {
     	CiudadesBuscarForm form = new CiudadesBuscarForm();
-    	form.setProvincias(servicioProvincia.getAll());    //  en lugar de esto hacemos @ModelAttribute("allProvincias")
+//    	form.setProvincias(servicioProvincia.getAll());    //  en lugar de esto hacemos @ModelAttribute("allProvincias")
     	modelo.addAttribute("formBean", form);
     	return "ciudadesBuscar";
     }
-     
-    
+
+
     @ModelAttribute("allProvincias")
     public List<Provincia> getAllProvincias() {
         return this.servicioProvincia.getAll();
     }
     
-    @RequestMapping(method=RequestMethod.POST)
-    public String submit(
-    	@ModelAttribute("formBean") @Valid CiudadesBuscarForm formBean,
+	@RequestMapping(method = RequestMethod.POST)
+	public String submit(
+		@ModelAttribute("formBean") @Valid CiudadesBuscarForm formBean,
     	BindingResult result,
     	ModelMap modelo,
     	@RequestParam String action
@@ -56,16 +56,16 @@ public class CiudadesBuscarController {
     		try {
     			List<Ciudad> ciudades = servicioCiudad.filter(formBean);
     			modelo.addAttribute("resultados", ciudades);
-			} catch (Exception e) {
-				ObjectError error = new ObjectError("globalError", e.getMessage());
-	            result.addError(error);
-			}
+    		} catch (Exception e) {
+    			ObjectError error = new ObjectError("globalError", e.getMessage());
+    			result.addError(error);
+    		}
     		
     		modelo.addAttribute("formBean", formBean);
-        	return "ciudadesBuscar";
+    		return "ciudadesBuscar";
     	}
-    
-    	
+
+
     	if(action.equals("Cancelar")) {
     		modelo.clear();
     		return "redirect:/";

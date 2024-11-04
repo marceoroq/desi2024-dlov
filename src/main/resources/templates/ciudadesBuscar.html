@@ -7,63 +7,65 @@
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
 <body>
-	<div class="starter-template">
-        <h1><span th:text="#{empresa}"></h1>
-        <h2><span th:text="#{ciudad.buscar.titulo}"></span></h2>
-    </div>
-    
-	<form class="container" th:action="@{/ciudadesBuscar}" th:object="${formBean}" method="post">
-		<p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
-		<table border="1" style="align-self: center;">
-	        <tr>
-	            <td><label th:text="#{ciudad.nombre}" /></td>
-	            <td><input type="text" th:field="*{nombre}" /></td>
-	        </tr>
-	         <tr>
-	            <td><label th:text="#{ciudad.provincia}" /></td>
-	            <td>
-			        <select th:field="*{provinciaSeleccionada}">
-					  <option th:value="null" text="Seleccione una opción"></option>
-					  <option th:each="p : ${allProvincias}" 
-					          th:value="${p.id}" 
-					          th:text="${p.nombre}"></option>
-					</select>
-				</td>
-			</tr>
-  		</table>
-  		<table class="botones">
-	   		<tr>
-		    	<td><input type="submit" name="action" value="Buscar" /></td>
-		    	<td><input type="submit" name="action" value="Cancelar" /></td>
-		    	<td><input type="submit" name="action" value="Registrar" /></td>
-	    	</tr>
-   		</table>
-		<table  class="resultados" border="0" style="align-self: center;">
-		    <thead>
-				<tr>
-					<th ><label th:text="#{ciudad.nombre}" /></th>
-					<th ><label th:text="#{ciudad.provincia}" /></th>
-					<th ></th>
-					<th ></th>
-				</tr>
-		    </thead>
-		    <tbody>
-		    	<tr th:each="p : ${resultados}">
-					<td th:text="${{p.nombre}}"></td>
-			        <td th:text="${{p.provincia.nombre}}" ></td>
-			        <td>
-	                	<a th:href="@{/ciudadEditar/{id}(id=${p.id})}" class="btn btn-primary">
-	                        editar
-	                    </a>
-	                </td>
-	                <td>
-	                    <a th:href="@{/ciudadEditar/delete/{id}(id=${p.id})}" class="btn btn-primary">
-	                        eliminar
-	                    </a>
-	                </td>
-		    	</tr>
-		    </tbody>
-    	</table>                 
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1" th:text="#{empresa}"></span>
+        <span class="navbar-brand mb-0 h1" th:text="#{ciudad.buscar.titulo}"></span>
+      </div>
+    </nav>
+
+	<form class="container mt-4" th:action="@{/ciudadesBuscar}" th:object="${formBean}" method="post">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="alert alert-danger" />
+                <div class="row mb-3">
+                    <label th:text="#{ciudad.nombre}" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input type="text" th:field="*{nombre}" class="form-control">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label th:text="#{ciudad.provincia}" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <select th:field="*{provinciaSeleccionada}" class="form-select">
+                            <option th:value="null" text="Seleccione una opción"/>
+                            <option th:each="p : ${allProvincias}" th:value="${p.id}" th:text="${p.nombre}"/>
+                        </select>
+                    </div>
+                </div>
+                <div class="col mb- d-flex justify-content-end gap-2">
+                    <input type="submit" name="action" value="Buscar" class="btn btn-primary" />
+                    <input type="submit" name="action" value="Cancelar" class="btn btn-secondary" />
+                    <input type="submit" name="action" value="Registrar" class="btn btn-success" />
+                </div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                        <th ><label th:text="#{ciudad.nombre}" /></th>
+                        <th ><label th:text="#{ciudad.provincia}" /></th>
+                        <th ></th>
+                        <th ></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="align-middle" th:each="p : ${resultados}">
+                        <td th:text="${{p.nombre}}"></td>
+                        <td th:text="${{p.provincia.nombre}}" ></td>
+                        <td>
+                            <a th:href="@{/ciudadEditar/{id}(id=${p.id})}" class="btn btn-primary">
+                                Editar
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="@{/ciudadEditar/delete/{id}(id=${p.id})}" class="btn btn-danger">
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
 	</form>
 </body>
 </html>	

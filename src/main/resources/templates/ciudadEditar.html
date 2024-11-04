@@ -14,26 +14,22 @@
 
 
 <body>
-
-	
-	<div class="starter-template">
-        <h1><span  th:text="#{empresa}" /></h1>
-        <h2 th:text="${formBean.id} ? #{ciudad.editar.titulo}: #{ciudad.registrar.titulo}" />
-        
-    </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1" th:text="#{empresa}"></span>
+        <span class="navbar-brand mb-0 h1" th:text="${formBean.id} ? #{ciudad.editar.titulo}: #{ciudad.registrar.titulo}"></span>
+      </div>
+    </nav>
     
 <form  th:action="@{/ciudadEditar}" th:object="${formBean}" method="post">
-	<p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
-	<input type="hidden" id="id" th:field="*{id}">
-	<table border="0" style="align-self: center;">
-		 
-        
+    <p th:each="err : ${#fields.errors('global')}" th:text="${err}" class="error" />
+    <input type="hidden" id="id" th:field="*{id}">
+    <table border="0" style="align-self: center;">
         <tr>
             <td><label th:text="#{ciudad.nombre}" /></td>
             <td><input type="text" th:field="*{nombre}" /></td> 
             <td> <p th:if="${#fields.hasErrors('nombre')}" th:errorclass="error" th:errors="*{nombre}" /> </td> 
         </tr>
-       
         <tr>
             <td><label th:text="#{ciudad.provincia}" /></td>
             <td>
@@ -44,20 +40,14 @@
 				</select>
 			</td>
 		</tr>
-        
-         
-  </table>
-  <table class="botones">
-
-      <tr>
-	      <td><input type="submit" name="action" value="Aceptar" /></td>
-	      <td><input type="submit" name="action" value="Cancelar" /></td>
-      </tr>
-        
     </table>
-    
-    
-   
+    <table class="botones">
+        <tr>
+            <td><input type="submit" name="action" value="Aceptar" /></td>
+            <td><input type="submit" name="action" value="Cancelar" /></td>
+        </tr>
+    </table>
+
 </form>
 </body>
 </html>	

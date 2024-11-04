@@ -37,9 +37,9 @@ public class CiudadEditarController {
     	if (dni.isPresent()) {
     		Ciudad entity = servicioCiudad.getById(dni.get());
     		CiudadForm form = new CiudadForm(entity);
-			modelo.addAttribute("formBean", form);
+    		modelo.addAttribute("formBean", form);
 		} else {
-	       modelo.addAttribute("formBean",new CiudadForm());
+			modelo.addAttribute("formBean", new CiudadForm());
 		}
        return "ciudadEditar";
     }
