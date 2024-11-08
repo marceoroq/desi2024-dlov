@@ -39,15 +39,14 @@ public class CiudadesBuscarController {
     	return "ciudadesBuscar";
     }
 
-
     @ModelAttribute("allProvincias")
     public List<Provincia> getAllProvincias() {
         return this.servicioProvincia.getAll();
     }
-    
-	@RequestMapping(method = RequestMethod.POST)
-	public String submit(
-		@ModelAttribute("formBean") @Valid CiudadesBuscarForm formBean,
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String submit(
+    	@ModelAttribute("formBean") @Valid CiudadesBuscarForm formBean,
     	BindingResult result,
     	ModelMap modelo,
     	@RequestParam String action
@@ -60,22 +59,20 @@ public class CiudadesBuscarController {
     			ObjectError error = new ObjectError("globalError", e.getMessage());
     			result.addError(error);
     		}
-    		
     		modelo.addAttribute("formBean", formBean);
     		return "ciudadesBuscar";
     	}
-
 
     	if(action.equals("Cancelar")) {
     		modelo.clear();
     		return "redirect:/";
     	}
-    	
+
     	if(action.equals("Registrar")) {
     		modelo.clear();
     		return "redirect:/ciudadEditar";
     	}
-    		
+
     	return "redirect:/";
     }
 }

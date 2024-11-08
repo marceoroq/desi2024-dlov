@@ -23,11 +23,8 @@ public class CiudadServiceImpl implements CiudadService {
 
 	@Override
 	public List<Ciudad> getAll() {
-		
 		return repo.findAll();
 	}
-
-
 
 	@Override
 	@Deprecated
@@ -35,7 +32,7 @@ public class CiudadServiceImpl implements CiudadService {
 
 		return repo.findById(idCiudad).get();
 	}
-	
+
 	@Override
 	public List<Ciudad> filter(CiudadesBuscarForm filter) throws Excepcion
 	{
@@ -47,8 +44,6 @@ public class CiudadServiceImpl implements CiudadService {
 			return repo.findByNombreOrIdProvincia(filter.getNombre(),filter.getProvinciaSeleccionada());
 				
 	}
-
-
 
 	@Override
 	public void deleteByid(Long id) {
