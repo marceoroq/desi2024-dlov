@@ -43,10 +43,6 @@ public class CamionServiceImpl implements CamionService {
 
 	@Override
 	public void save(Camion c) throws Excepcion {
-	    // Verificamos si ya existe un Camion con la misma patente
-//	    if (repo.findByPatente(c.getPatente()).isPresent()) {
-//	        throw new Excepcion("Ya existe un camión con la misma patente");
-//	    }
 		repo.save(c);
 	}
 }
