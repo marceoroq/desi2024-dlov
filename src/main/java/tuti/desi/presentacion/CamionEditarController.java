@@ -11,8 +11,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,85 +30,80 @@ import tuti.desi.servicios.CiudadService;
 @RequestMapping("/camionEditar")
 public class CamionEditarController {
 	@Autowired
-    private CamionService servicioCamion;
+	private CamionService servicioCamion;
 	
 	@Autowired
-    private CiudadService servicioCiudad;
+	private CiudadService servicioCiudad;
 
-	@RequestMapping(path = {"", "/{patente}"}, method = RequestMethod.GET)
+	@GetMapping(path = {"", "/{patente}"})
 	public String preparaForm(Model modelo, @PathVariable("patente") Optional<String> patente)  throws Exception {
-    	if (patente.isPresent()) {
-    		// Obtener el camión por patente
-            Camion entity = servicioCamion.getByPatente(patente.get());
-            
-            // Convertir la entidad Camion a CamionForm
-            CamionForm form = new CamionForm(entity);
-            
-    		modelo.addAttribute("formBean", form);
+		if (patente.isPresent()) {
+			// Obtener el camión por patente
+			Camion entity = servicioCamion.getByPatente(patente.get());
+
+			// Convertir la entidad Camion a CamionForm
+			CamionForm form = new CamionForm(entity);
+
+			modelo.addAttribute("formBean", form);
 		} else {
 			// Si no hay patente, crear un formulario vacío
 			modelo.addAttribute("formBean", new CamionForm());
 		}
-    	return "camionEditar";
+		return "camionEditar";
 	}
 	
-    @ModelAttribute("allCiudades")
-    public List<Ciudad> getAllCiudades() {
-        return this.servicioCiudad.getAll();
-    }
-	
-    @RequestMapping(method = RequestMethod.POST)
-    public String submit(
-    	@ModelAttribute("formBean") @Valid CamionForm formBean,
-    	BindingResult result,
-    	ModelMap modelo,
-    	@RequestParam String action,
-    	@PathVariable Optional<String> patente
-    ) {
-    	if(action.equals("Aceptar")) {
-    		if(result.hasErrors()) {
-    			modelo.addAttribute("formBean", formBean);
-    			return "camionEditar";
-    		} else {
-    			try {
-    				// Verificamos si URL no tiene patente, eso quiere decir estamos creando un nuevo camion
-        			if (patente.isEmpty()) {
-        				// Verificamos si la patente ya existe en nuestra base de datos
-        				if(servicioCamion.getByPatente(formBean.getPatente()) != null) {
-        					// Si existe, agregamos el error y volvemos a misma pagina para mostrar el error
-                            FieldError error = new FieldError("formBean", "patente", "Ya existe un camión con esta patente");
-                            result.addError(error);
-                            modelo.addAttribute("formBean", formBean);
-                            return "camionEditar";
-        				}
-        			}
-        			
-        			// Aqui guardariamos el camion, ya sea porque estamos editando la informacion de un camion
-        			// o estamos creando uno nuevo y ya validamos que la patente no existiera
-        			Camion camion = formBean.toPojo();
+	@ModelAttribute("allCiudades")
+	public List<Ciudad> getAllCiudades() {
+		return this.servicioCiudad.getAll();
+	}
+
+	@PostMapping
+	public String submit(
+		@ModelAttribute("formBean") @Valid CamionForm formBean,
+		BindingResult result,
+		ModelMap modelo,
+		@RequestParam String action
+	) {
+		if(action.equals("Aceptar")) {
+			if(result.hasErrors()) {
+				modelo.addAttribute("formBean", formBean);
+				return "camionEditar";
+			} else {
+				try {
+					// Verificamos si la patente ya existe en nuestra base de datos
+					if(servicioCamion.getByPatente(formBean.getPatente()) != null) {
+						// Si existe, agregamos el error y volvemos a misma pagina para mostrar el error
+						FieldError error = new FieldError("formBean", "patente", "Ya existe un camión con esta patente");
+						result.addError(error);
+						modelo.addAttribute("formBean", formBean);
+						return "camionEditar";
+					}
+
+					// Guardamos el camion si no hubo error en la validacion de la patente
+					Camion camion = formBean.toPojo();
 					camion.setCiudad(servicioCiudad.getById(formBean.getIdCiudad()));
 					servicioCamion.save(camion);
-					
+
 					// Una vez guardado el camion, volvemos a la pagina principal
 					return "redirect:/";
 				} catch (Excepcion e) {
 					if(e.getAtributo() == null) {
 						ObjectError error = new ObjectError("globalError", e.getMessage());
-			            result.addError(error);
+						result.addError(error);
 					} else {
-			    		FieldError error1 = new FieldError("formBean", e.getAtributo(), e.getMessage());
-			            result.addError(error1);
+						FieldError error1 = new FieldError("formBean", e.getAtributo(), e.getMessage());
+						result.addError(error1);
 					}
-		            modelo.addAttribute("formBean",formBean);
-	    			return "camionEditar";  //Como existe un error me quedo en la misma pantalla
+					modelo.addAttribute("formBean",formBean);
+					return "camionEditar";  //Como existe un error me quedo en la misma pantalla
 				}
-    		}
-    	}
+			}
+		}
 
-    	if(action.equals("Cancelar")) {
-    		modelo.clear();
-    	}
+		if(action.equals("Cancelar")) {
+			modelo.clear();
+		}
 
-    	return "redirect:/";
-    }
+		return "redirect:/";
+	}
 }
