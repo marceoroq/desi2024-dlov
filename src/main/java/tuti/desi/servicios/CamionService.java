@@ -24,7 +24,7 @@ public interface CamionService {
 	 * @param patente Identificador del camion buscado
 	 * @return camion encontrado
 	 */
-	Camion getByPatente(String patenteCamion) ;
+	Camion getByPatente(String patenteCamion);
 
 	void deleteByPatente(String patenteCamion);
 
