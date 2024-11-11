@@ -10,8 +10,7 @@ import tuti.desi.entidades.Camion;
 
 @Repository
 public interface ICamionRepo extends JpaRepository<Camion, String> {
-	
-	@Query("SELECT c FROM Camion c WHERE c.patente=?1")
+
 	Optional<Camion> findByPatente(String patenteCamion);
 	
 	@Query("DELETE FROM Camion c WHERE c.patente = ?1")
