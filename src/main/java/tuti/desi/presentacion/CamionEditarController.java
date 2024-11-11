@@ -70,16 +70,6 @@ public class CamionEditarController {
 				return "camionEditar";
 			} else {
 				try {
-					// Verificamos si la patente ya existe en nuestra base de datos
-					if(servicioCamion.getByPatente(formBean.getPatente()) != null) {
-						// Si existe, agregamos el error y volvemos a misma pagina para mostrar el error
-						FieldError error = new FieldError("formBean", "patente", "Ya existe un camión con esta patente");
-						result.addError(error);
-						modelo.addAttribute("formBean", formBean);
-						return "camionEditar";
-					}
-
-					// Guardamos el camion si no hubo error en la validacion de la patente
 					Camion camion = formBean.toPojo();
 					camion.setCiudad(servicioCiudad.getById(formBean.getIdCiudad()));
 					servicioCamion.save(camion);
