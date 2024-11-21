@@ -18,5 +18,11 @@ public interface ICiudadRepo extends JpaRepository<Ciudad, Long> {
 	@Query("SELECT c FROM Ciudad c WHERE c.nombre like ?1 and c.provincia.id=?2")
 	List<Ciudad> findByNombreAndIdProvincia(String nombre, Long idProvinciaSeleccionada);
 	
+	//Agregado
+    // Buscar ciudades por código postal
+    List<Ciudad> findByCodigoPostal(String codigoPostal);
+
+	@Override
+	void deleteAll();
 
 }

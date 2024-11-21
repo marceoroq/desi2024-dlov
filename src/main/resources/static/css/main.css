@@ -5,6 +5,7 @@
   color: white;
 }
 
+<<<<<<< Updated upstream
 .resultados tr:nth-child(even) {
 	background-color: #f2f2f2;
 }
@@ -47,3 +48,10 @@ table.botones tr {
 .error {
     color: red;
 }
+=======
+.form-item-error {
+    border-color: indianred;
+    border-width: 0.1rem;   
+}
+
+>>>>>>> Stashed changes

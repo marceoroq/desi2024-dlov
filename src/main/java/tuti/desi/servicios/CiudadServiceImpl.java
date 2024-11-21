@@ -16,8 +16,7 @@ import tuti.desi.presentacion.CiudadesBuscarForm;
 
 @Service
 public class CiudadServiceImpl implements CiudadService {
-//	Logger LOG = LoggerFactory.getLogger(CiudadService.class);
-//	
+//	Logger LOG = LoggerFactory.getLogger(CiudadService.class);	
 	@Autowired
 	ICiudadRepo repo;
 
