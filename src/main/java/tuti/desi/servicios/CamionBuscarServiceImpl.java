@@ -39,7 +39,9 @@ public class CamionBuscarServiceImpl implements CamionBuscarService {
                 if (camion.isEmpty()) {
                     throw new Excepcion("No se encontró un camión con esa patente.");
                 }
-
+                if (camion.get().getCiudad().getCodigoPostal() == null ? form.getCodigoPostal() != null : !camion.get().getCiudad().getCodigoPostal().equals(form.getCodigoPostal())) {
+                    throw new Excepcion("No se encontraron resultados para los criterios ingresados.");
+                }
                 // Obtener la ciudad asociada al camión
                 resultados = List.of(camion.get().getCiudad());
             } else {
