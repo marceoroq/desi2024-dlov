@@ -29,7 +29,7 @@ public class CiudadForm {
 		super();
 		this.id = c.getId();
 		this.nombre = c.getNombre();
-//		this.idProvincia = c.getProvincia().getId();
+		this.idProvincia = c.getProvincia().getId();
 	}
 
 	public String getNombre() {

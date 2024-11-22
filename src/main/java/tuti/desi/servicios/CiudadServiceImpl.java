@@ -55,9 +55,9 @@ public class CiudadServiceImpl implements CiudadService {
 
 	@Override
 	public void save(Ciudad c) throws Excepcion {
-//		if(c.getId()==null && !repo.findByNombreAndIdProvincia(c.getNombre(), c.getProvincia().getId()).isEmpty()) //estoy dando de alta una nueva ciudad y ya existe una igual?
-//			throw new Excepcion("Ya existe una ciudad con el mismo nombre, para la misma provincia");  
-//		else
+		if(c.getId()==null && !repo.findByNombreAndIdProvincia(c.getNombre(), c.getProvincia().getId()).isEmpty())
+			throw new Excepcion("Ya existe una ciudad con el mismo nombre, para la misma provincia", "nombre");  
+		else
 			repo.save(c);
 		
 	}
