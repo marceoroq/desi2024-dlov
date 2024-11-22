@@ -2,6 +2,13 @@
 
 Trabajo Practico DESI 2024
 
+Integrantes:
+Dominguez Juan Pablo (juanpdominguez97@gmail.com)
+León Agustin (agusleon2009@gmail.com)
+Oroquieta Marcelo (oroquieta.m@gmail.com)
+
+Link repo Github: https://github.com/marceoroq/desi2024-dlov
+
 Historias de usuario 1, 3 y 4.
 
 Schema de la base de datos:
