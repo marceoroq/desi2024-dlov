@@ -1,56 +1,67 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    </head>
-    <body>
-        <nav class="navbar justify-content-between px-3 navbar-expand-lg navbar-dark bg-dark text-light">
-            <div class="d-flex gap-3">
-                <div>Bienvenido: <span><strong>Leon</strong></span></div>
-                <div>Permisos: <span sec:authentication="principal.authorities">Admin</span></div>
-            </div>
-            <form th:action="@{/logout}" method="post">
-                <input class="btn btn-success" value="Logout" type="submit" />
-            </form>
-        </nav>
-        <div class="container mt-4">
-            <div class="row justify-content-center">
-                <div class="col-6">
-                    <div class="starter-template container d-flex flex-column align-items-center">
-                        <h1 th:text="'Bienvenido'"></h1>
-                    </div>
-                    <div class="container d-flex justify-content-evenly">
-                        <a class="btn btn-primary" th:href="ciudadesBuscar">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                            </svg>
-                            Buscar Ciudades
-                        </a>
-                        <a class="btn btn-success" th:href="ciudadEditar">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                            </svg>
-                            Registrar Ciudad
-                        </a>
-                        <a class="btn btn-success" th:href="personasBuscar">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                            </svg>
-                            Buscar Personas
-                        </a>
-                        <a class="btn btn-success" th:href="camionBuscar">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                            </svg>
-                            Buscar Camion
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  </head>
+  <body>
+    <nav class="navbar justify-content-between px-3 navbar-expand-lg navbar-dark bg-dark text-light">
+      <div class="d-flex gap-3">
+        <div>
+          Bienvenido:
+          <span><strong>Juan Carlos</strong></span>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    </body>
+        <div>
+          Permisos:
+          <span sec:authentication="principal.authorities">Admin</span>
+        </div>
+      </div>
+      <form th:action="@{/logout}" method="post">
+        <input class="btn btn-success" value="Logout" type="submit" />
+      </form>
+    </nav>
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div class="col-8">
+          <div class="starter-template container d-flex flex-column align-items-center">
+            <h1 th:text="'Bienvenido'"></h1>
+          </div>
+          <div class="container d-flex justify-content-center gap-2">
+            <a class="btn btn-primary" th:href="ciudadesBuscar">
+              <i class="bi bi-search"></i>
+              Buscar Ciudades
+            </a>
+            <a class="btn btn-success" th:href="ciudadEditar">
+              <i class="bi bi-pencil-square"></i>
+              Registrar Ciudad
+            </a>
+            <a class="btn btn-success" th:href="paqueteRegistrar">
+              <i class="bi bi-box-seam"></i>
+              Registrar Paquete
+            </a>
+            <a class="btn btn-warning" th:href="camionEditar">
+              <i class="bi bi-truck"></i>
+              Agregar Camiones
+            </a>
+            <a class="btn btn-success" th:href="personasBuscar">
+              <i class="bi bi-person-circle"></i>
+              Buscar Personas
+            </a>
+            <a class="btn btn-success" th:href="camionBuscar">
+              <i class="bi bi-truck"></i>
+              Buscar Camion
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+  </body>
 </html>
