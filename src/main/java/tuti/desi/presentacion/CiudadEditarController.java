@@ -33,9 +33,9 @@ public class CiudadEditarController {
     private ProvinciaService servicioProvincia;
      
     @RequestMapping(path = {"", "/{id}"}, method = RequestMethod.GET)
-    public String preparaForm(Model modelo, @PathVariable("id") Optional<Long> dni) throws Exception {
-    	if (dni.isPresent()) {
-    		Ciudad entity = servicioCiudad.getById(dni.get());
+    public String preparaForm(Model modelo, @PathVariable("id") Optional<Long> id) throws Exception {
+    	if (id.isPresent()) {
+    		Ciudad entity = servicioCiudad.getById(id.get());
     		CiudadForm form = new CiudadForm(entity);
     		modelo.addAttribute("formBean", form);
 		} else {
@@ -84,7 +84,7 @@ public class CiudadEditarController {
 			    		FieldError error1 = new FieldError("formBean", e.getAtributo(), e.getMessage());
 			            result.addError(error1);
 					}
-		            modelo.addAttribute("formBean",formBean);
+		            modelo.addAttribute("formBean", formBean);
 	    			return "ciudadEditar";  //Como existe un error me quedo en la misma pantalla
 				}
     		}
