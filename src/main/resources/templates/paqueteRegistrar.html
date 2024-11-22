@@ -3,14 +3,20 @@
 <head>
     <title>Registrar Paquete</title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        body { background-color: #f8f9fa; }
-        .container { background: #fff; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075); }
+         body { background-color: #f8f9fa; }
+        .container { 
+            background: #fff;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-success">
+    <nav class="navbar navbar-dark bg-purple">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Empresa de Envíos</span>
             <span class="navbar-brand mb-0 h1">Registrar Paquete</span>
@@ -43,8 +49,14 @@
                 <!-- Peso -->
                 <div class="mb-3">
                     <label>Peso</label>
-                    <input type="number" step="0.01" th:field="*{peso}" class="form-control" />
-                    <p th:if="${#fields.hasErrors('peso')}" class="alert alert-danger" th:errors="*{peso}"></p>
+                    <input
+                        type="number"
+                        step="0.01"
+                        th:field="*{peso}"
+                        class="form-control"
+                        th:classappend="${#fields.hasErrors('peso')} ? 'form-item-error' : ''"
+                    />
+                    <p th:if="${#fields.hasErrors('peso')}" class="text-error" th:errors="*{peso}"></p>
                 </div>
 
                 <!-- Frágil -->
@@ -58,15 +70,27 @@
                 <!-- DNI Remitente -->
                 <div class="mb-3">
                     <label>DNI Remitente</label>
-                    <input type="text" th:field="*{dniRemitente}" class="form-control" maxlength="8" />
-                    <p th:if="${#fields.hasErrors('dniRemitente')}" class="alert alert-danger" th:errors="*{dniRemitente}"></p>
+                    <input
+                        type="text"
+                        th:field="*{dniRemitente}"
+                        class="form-control"
+                        th:classappend="${#fields.hasErrors('dniRemitente')} ? 'form-item-error' : ''"
+                        maxlength="8"
+                    />
+                    <p th:if="${#fields.hasErrors('dniRemitente')}" class="text-error" th:errors="*{dniRemitente}"></p>
                 </div>
 
                 <!-- DNI Destinatario -->
                 <div class="mb-3">
                     <label>DNI Destinatario</label>
-                    <input type="text" th:field="*{dniDestinatario}" class="form-control" maxlength="8" />
-                    <p th:if="${#fields.hasErrors('dniDestinatario')}" class="alert alert-danger" th:errors="*{dniDestinatario}"></p>
+                    <input
+                        type="text"
+                        th:field="*{dniDestinatario}"
+                        class="form-control"
+                        th:classappend="${#fields.hasErrors('dniDestinatario')} ? 'form-item-error' : ''"
+                        maxlength="8"
+                    />
+                    <p th:if="${#fields.hasErrors('dniDestinatario')}" class="text-error" th:errors="*{dniDestinatario}"></p>
                 </div>
 
                 <!-- Botones -->
@@ -75,14 +99,11 @@
                     <a th:href="@{/paqueteRegistrar/cancelar}" class="btn btn-secondary">Volver</a>
                 </div>
 				
-				
 				<br>
 				<div th:if="${param.success}" class="alert alert-success" role="alert">
 				    ¡El paquete se registró correctamente!
 				</div>
 
-				
-				
             </div>
         </div>
     </form>

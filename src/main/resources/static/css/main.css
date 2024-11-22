@@ -7,8 +7,8 @@
 }
 
 .form-item-error {
-  border-color: indianred;
-  border-width: 0.1rem;
+  border-color: indianred!important;
+  border-width: 0.1rem!important;
 }
 
 .resultados tr:nth-child(even) {
@@ -53,4 +53,44 @@ table.botones tr {
 
 .error {
   color: red;
+}
+
+.button-group a.btn {
+  min-width: 180px;
+}
+
+a.btn-purple {
+  background-color: rebeccapurple;
+  border-color: rebeccapurple;
+  color: white;
+}
+
+a.btn-purple:hover {
+  background-color:#4e207e;
+  border-color: #4e207e;
+  color: white;
+}
+
+nav.bg-purple {
+  background-color: rebeccapurple;
+  border-color: rebeccapurple;
+  color: white;
+}
+
+a.btn-orange {
+  background-color: orangered;
+  border-color: orangered;
+  color: white;
+}
+
+a.btn-orange:hover {
+  background-color: #ca3701;
+  border-color: #ca3701;
+  color: white;
+}
+
+nav.bg-orange {
+  background-color: orangered;
+  border-color: orangered;
+  color: white;
 }
