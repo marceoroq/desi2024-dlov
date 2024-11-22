@@ -8,5 +8,6 @@ import tuti.desi.entidades.Provincia;
 @Repository
 public interface IProvinciaRepo extends JpaRepository<Provincia, Long> {
 
-
+    @Override
+    void deleteAll();
 }

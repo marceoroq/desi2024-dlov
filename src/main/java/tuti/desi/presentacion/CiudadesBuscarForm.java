@@ -9,6 +9,9 @@ public class CiudadesBuscarForm {
 	private Long provinciaSeleccionada;
 	private List<Provincia> provincias;
 
+	//agregado
+	private String CodigoPostal;
+
 	public List<Provincia> getProvincias() {
 		return provincias;
 	}
@@ -34,6 +37,18 @@ public class CiudadesBuscarForm {
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	//agregado
+	public String getCodigoPostal() {
+		if(CodigoPostal != null && CodigoPostal.length() > 0)
+			return CodigoPostal;
+		else
+			return null;
+	}
+	
+	public void setCodigoPostal(String CodigoPostal) {
+		this.CodigoPostal = CodigoPostal;
 	}
 	
 

@@ -19,6 +19,9 @@ public class Ciudad {
 	@ManyToOne
 	private Provincia provincia;
 	
+	private String codigoPostal; 
+	private String Clima; 
+	
 	
 	public Long getId() {
 		return id;
@@ -39,4 +42,20 @@ public class Ciudad {
 		this.provincia = provincia;
 	}
 	
+	//Se agrego los get and set de CodigoPostal y Clima
+	public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+	public String getClima() {
+        return Clima;
+    }
+
+    public void setClima(String Clima) {
+        this.Clima = Clima;
+    }
 }
